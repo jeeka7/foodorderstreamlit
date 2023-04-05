@@ -15,7 +15,7 @@ cart = {}
 st.title("Food Ordering App")
 st.write("Welcome to our menu!")
 for item, price in menu.items():
-    st.write(f"{item}: ${price}")
+    st.write(f"{item}: {price} INR")
     quantity = st.number_input(f"Enter quantity for {item}", min_value=0, max_value=10)
     if quantity > 0:
         cart[item] = quantity
@@ -25,7 +25,7 @@ st.write("Your Cart:")
 for item, quantity in cart.items():
     st.write(f"{item} x {quantity}")
 total = sum([menu[item]*quantity for item, quantity in cart.items()])
-st.write(f"Total: ${total}")
+st.write(f"Total: {total} INR")
 
 # Place order
 if st.button("Place Order"):
