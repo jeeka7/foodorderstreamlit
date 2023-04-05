@@ -1,68 +1,53 @@
 import streamlit as st
 
-# Define the menu items
-menu_items = {
-    "Burger": 10.99,
-    "Pizza": 15.99,
-    "Fries": 5.99,
-    "Drink": 2.99
+# Define menu items and their prices
+menu = {
+    "Burger": 10.0,
+    "Pizza": 20.0,
+    "Sandwich": 5.0,
+    "Fries": 3.0
 }
 
-# Define the payment options
-payment_options = {
-    "Credit Card": "credit_card",
-    "Debit Card": "debit_card",
-    "PayPal": "paypal",
-    "Google Pay": "google_pay"
-}
+# Define a function to calculate the total cost of the order
+def calculate_total(order):
+    total = 0.0
+    for item, quantity in order.items():
+        total += menu[item] * quantity
+    return total
 
-# Define the order form
-def order_form():
-    order = {}
-    for item, price in menu_items.items():
-        qty = st.number_input(f"How many {item}s would you like?", min_value=0, max_value=10, step=1)
-        if qty > 0:
-            order[item] = {"quantity": qty, "price": price}
-    return order
-
-# Define the payment form
-def payment_form():
-    payment = {}
-    selected_option = st.selectbox("Select a payment option", list(payment_options.keys()))
-    payment["option"] = payment_options[selected_option]
-    if payment["option"] == "credit_card" or payment["option"] == "debit_card":
-        payment["card_number"] = st.text_input("Enter your card number")
-        payment["expiry_date"] = st.date_input("Enter the expiry date")
-        payment["cvv"] = st.text_input("Enter the CVV")
-    elif payment["option"] == "paypal":
-        payment["email"] = st.text_input("Enter your PayPal email address")
-        payment["password"] = st.text_input("Enter your PayPal password", type="password")
-    elif payment["option"] == "google_pay":
-        payment["phone_number"] = st.text_input("Enter your phone number")
-        payment["pin"] = st.text_input("Enter your PIN", type="password")
-    return payment
-
-# Define the main app
+# Define the main function
 def main():
-    st.title("Food Ordering App")
-    order = order_form()
-    st.write("Your order:")
-    for item, details in order.items():
-        st.write(f"{item} x {details['quantity']} - ${details['price'] * details['quantity']:.2f}")
-    total_price = sum([details['price'] * details['quantity'] for details in order.values()])
-    st.write(f"Total: ${total_price:.2f}")
-    payment = payment_form()
-    st.write("Payment details:")
-    st.write(f"Option: {list(payment_options.keys())[list(payment_options.values()).index(payment['option'])]}")
-    if payment["option"] == "credit_card" or payment["option"] == "debit_card":
-        st.write(f"Card Number: {payment['card_number']}")
-        st.write(f"Expiry Date: {payment['expiry_date']}")
-        st.write(f"CVV: {payment['cvv']}")
-    elif payment["option"] == "paypal":
-        st.write(f"PayPal Email: {payment['email']}")
-        st.write(f"PayPal Password: {len(payment['password']) * '*'}")
-    elif payment["option"] == "google_pay":
-        st.write(f"Phone Number: {payment['phone_number']}")
-        st.write(f"PIN: {len(payment['pin']) * '*'}")
+    st.title("Food Ordering and Payment System")
 
-if __name__ == "__
+    # Display the menu
+    st.write("## Menu")
+    for item, price in menu.items():
+        st.write(f"{item}: ${price:.2f}")
+
+    # Get the user's order
+    st.write("## Order")
+    order = {}
+    for item in menu.keys():
+        quantity = st.number_input(f"How many {item}s do you want?", min_value=0, value=0)
+        if quantity > 0:
+            order[item] = quantity
+
+    # Calculate the total cost
+    total = calculate_total(order)
+
+    # Display the total cost
+    st.write("## Total")
+    st.write(f"Total cost: ${total:.2f}")
+
+    # Get the user's UPI ID
+    st.write("## Payment")
+    upi_id = st.text_input("Enter your UPI ID")
+
+    # Allow the user to confirm the order and pay
+    if st.button("Confirm order and pay"):
+        # TODO: Implement the UPI payment functionality here
+        st.write(f"Your order has been confirmed and paid for. Thank you for ordering!")
+
+# Run the main function
+if __name__ == "__main__":
+    main()
