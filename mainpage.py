@@ -1,27 +1,21 @@
 import streamlit as st
 
-menu = {
-    'Burger': 10,
-    'Pizza': 15,
-    'Fries': 5,
-    'Drink': 2
-}
+# Define the food items and their prices
+menu = {"Pizza": 10, "Burger": 5, "Hot Dog": 4, "Fries": 3}
 
-st.sidebar.title('Menu')
+# Create a sidebar menu with the food items
+st.sidebar.title("Menu")
+food_choice = st.sidebar.selectbox("Select a food item", list(menu.keys()))
 
-for item in menu:
-    st.sidebar.write(f'{item}: ${menu[item]}')
-st.title('Food Order Form')
+# Get the quantity of the selected food item
+quantity = st.sidebar.number_input("Quantity", min_value=1, max_value=10, value=1)
 
-with st.form('order_form'):
-    for item in menu:
-        quantity = st.number_input(f'{item} quantity', min_value=0, max_value=10, key=item)
-    
-    submit_button = st.form_submit_button(label='Place Order')
-if submit_button:
-    total_price = 0
-    for item in menu:
-        quantity = order_form[item]
-        total_price += quantity * menu[item]
-        
-    st.write(f'Total Price: ${total_price}')
+# Calculate the total price of the order
+total_price = menu[food_choice] * quantity
+
+# Show the total price to the user
+st.write(f"Total price: ${total_price}")
+
+# Allow the user to place the order
+if st.button("Place Order"):
+    st.write("Your order has been placed!")
