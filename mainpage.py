@@ -28,3 +28,11 @@ else:
     st.write("Items:")
     for item in order:
         st.write(f"- {item['quantity']} x {item['item']} (${item['price']}) = ${item['quantity'] * item['price']}")
+def place_order(order):
+    # Here you would add code to process the order, e.g. sending it to a restaurant or delivery service.
+    # For this example, we'll just print the order to the console.
+    print("Order placed:")
+    for item in order:
+        print(f"- {item['quantity']} x {item['item']} (${item['price']}) = ${item['quantity'] * item['price']}")
+    total = sum(item["price"] * item["quantity"] for item in order)
+    print(f"Total: ${total}")
