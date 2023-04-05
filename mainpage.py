@@ -10,7 +10,7 @@ food_items = {
 
 # Create a sidebar menu of food items
 st.sidebar.header("Menu")
-selected_item = st.sidebar.selectbox("Select an item", list(food_items.keys()))
+selected_item = st.sidebar.multiselect("Select an item", list(food_items.keys()))
 
 # Create a quantity selector
 quantity = st.sidebar.number_input("Select quantity", min_value=1, max_value=10, value=1)
