@@ -1,33 +1,30 @@
 import streamlit as st
 
-# Define food items and prices
-menu = {
+# Define the menu items and their prices
+menu_items = {
     "Burger": 10,
-    "Pizza": 12,
+    "Pizza": 15,
+    "Fries": 5,
     "Salad": 8,
-    "Fries": 4
 }
 
-# Initialize cart
-cart = {}
+# Define the initial order
+order = []
 
-# Display menu and accept user input
-st.title("Food Ordering App")
-st.write("Welcome to our menu!")
-for item, price in menu.items():
-    st.write(f"{item}: {price} INR")
-    quantity = st.number_input(f"Enter quantity for {item}", min_value=0, max_value=10)
+# Define the sidebar for adding items to the order
+st.sidebar.title("Menu")
+for item, price in menu_items.items():
+    quantity = st.sidebar.number_input(f"{item} (${price})", value=0)
     if quantity > 0:
-        cart[item] = quantity
+        order.append({"item": item, "price": price, "quantity": quantity})
 
-# Display cart and total
-st.write("Your Cart:")
-for item, quantity in cart.items():
-    st.write(f"{item} x {quantity}")
-total = sum([menu[item]*quantity for item, quantity in cart.items()])
-st.write(f"Total: {total} INR")
-
-# Place order
-if st.button("Place Order"):
-    st.write("Thank you for your order!")
-    cart.clear()
+# Define the main section for displaying the order
+st.title("Your Order")
+if len(order) == 0:
+    st.write("No items in your order")
+else:
+    total = sum(item["price"] * item["quantity"] for item in order)
+    st.write(f"Total: ${total}")
+    st.write("Items:")
+    for item in order:
+        st.write(f"- {item['quantity']} x {item['item']} (${item['price']}) = ${item['quantity'] * item['price']}")
