@@ -16,9 +16,12 @@ order = {}
 st.title("Food Ordering App")
 st.subheader("Welcome to our offline store!")
 
+df = pd.DataFrame(menu_items)
+
+
 # Display the menu items
 st.sidebar.header("Menu")
-st.sidebar.write(menu_items)
+st.sidebar.write(df)
 
 # Collect the order from the user
 st.header("Order")
