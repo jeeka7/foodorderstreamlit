@@ -16,7 +16,7 @@ st.title("Food Ordering App")
 st.subheader("Welcome to our offline store!")
 
 # Display the menu items
-st.header("Menu")
+st.sidebar.header("Menu")
 for item, price in menu_items.items():
     st.write(f"{item}: ${price}")
 
