@@ -2,10 +2,10 @@ import streamlit as st
 
 # Define the menu items
 menu_items = {
-    "Burger": 5.99,
-    "Pizza": 9.99,
-    "Fries": 2.99,
-    "Soda": 1.99
+    "Burger": 6,
+    "Pizza": 10,
+    "Fries": 3,
+    "Soda": 2
 }
 
 # Create a dictionary to store the order
@@ -18,7 +18,7 @@ st.subheader("Welcome to our offline store!")
 # Display the menu items
 st.sidebar.header("Menu")
 for item, price in menu_items.items():
-    st.write(f"{item}: ${price}")
+    st.write(d"{item}   :    {price} INR")
 
 # Collect the order from the user
 st.header("Order")
