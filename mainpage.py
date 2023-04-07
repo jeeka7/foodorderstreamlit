@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 # Define the menu items
 menu_items = {
