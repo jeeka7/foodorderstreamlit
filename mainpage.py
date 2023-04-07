@@ -18,7 +18,9 @@ st.subheader("Welcome to our offline store!")
 # Display the menu items
 st.sidebar.header("Menu")
 for item, price in menu_items.items():
-    st.sidebar.write(print('{:10s} {:3d}'.format(f"{item}:{price} INR"))
+    st.sidebar.write(for item, price in menu_items.items():
+    st.sidebar.write(f"{item}:{price} INR")
+)
 
 # Collect the order from the user
 st.header("Order")
