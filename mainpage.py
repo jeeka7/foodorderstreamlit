@@ -1,25 +1,54 @@
 import streamlit as st
 
-# Define the food items available for order
-food_items = {
-    "Pizza": 10.99,
-    "Burger": 7.99,
-    "Fries": 3.99,
-    "Chicken Wings": 8.99
+# Define the menu items
+menu_items = {
+    "Burger": 5.99,
+    "Pizza": 9.99,
+    "Fries": 2.99,
+    "Soda": 1.99
 }
 
-# Create a sidebar menu of food items
-st.sidebar.header("Menu")
-selected_item = st.sidebar.multiselect("Select an item", list(food_items.keys()))
+# Create a dictionary to store the order
+order = {}
 
-# Create a quantity selector
-quantity = st.sidebar.number_input("Select quantity", min_value=1, max_value=10, value=1)
+# Define the title and subtitle of the app
+st.title("Food Ordering App")
+st.subheader("Welcome to our offline store!")
 
-# Calculate the total price based on the selected item and quantity
-total_price = food_items[selected_item] * quantity
+# Display the menu items
+st.header("Menu")
+for item, price in menu_items.items():
+    st.write(f"{item}: ${price}")
 
-# Display the order details
-st.write("## Order Details")
-st.write(f"Item: {selected_item}")
-st.write(f"Quantity: {quantity}")
-st.write(f"Total price: ${total_price:.2f}")
+# Collect the order from the user
+st.header("Order")
+item = st.selectbox("Select an item", list(menu_items.keys()))
+quantity = st.number_input("Quantity", min_value=1, max_value=10, step=1)
+add_to_order = st.button("Add to Order")
+
+if add_to_order:
+    if item in order:
+        order[item] += quantity
+    else:
+        order[item] = quantity
+    st.success(f"Added {quantity} {item}(s) to your order.")
+
+# Display the current order
+st.header("Current Order")
+if not order:
+    st.write("Your order is empty.")
+else:
+    for item, quantity in order.items():
+        st.write(f"{item}: {quantity}")
+
+# Checkout the order
+checkout = st.button("Checkout")
+if checkout:
+    total_cost = sum([menu_items[item] * quantity for item, quantity in order.items()])
+    st.success(f"Total cost: ${total_cost:.2f}. Thank you for your order!")
+
+# Reset the order
+reset_order = st.button("Reset Order")
+if reset_order:
+    order.clear()
+    st.warning("Order reset.")
