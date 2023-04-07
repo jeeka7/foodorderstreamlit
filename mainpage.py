@@ -45,7 +45,7 @@ else:
 checkout = st.button("Checkout")
 if checkout:
     total_cost = sum([menu_items[item] * quantity for item, quantity in order.items()])
-    st.success(f"Total cost: {total_cost}  INR. Thank you for your order!")
+    st.success(f"Total amount is {total_cost}  INR. Thank you for your order!")
 
 # Reset the order
 reset_order = st.button("Reset Order")
