@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 # Define the menu items
 menu_items = {
@@ -16,12 +15,10 @@ order = {}
 st.title("Food Ordering App")
 st.subheader("Welcome to our offline store!")
 
-df = pd.DataFrame(menu_items)
-
-
 # Display the menu items
 st.sidebar.header("Menu")
-st.sidebar.write(df)
+for item, price in menu_items.items():
+    st.sidebar.write(print('{:10s} {:3d}'.format(f"{item}:{price} INR"))
 
 # Collect the order from the user
 st.header("Order")
